@@ -5,6 +5,8 @@ import { Request, Response, NextFunction } from 'express';
 const RUTAS_PUBLICAS: { method: string; path: string }[] = [
   { method: 'POST', path: '/auth/login' },
   { method: 'POST', path: '/auth/registro' },
+  { method: 'GET', path: '/canchas' },
+
 ];
 
 @Injectable()
