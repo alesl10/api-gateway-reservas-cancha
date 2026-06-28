@@ -16,6 +16,9 @@ services:
       # MISMO valor que el JWT_SECRET de api-usuarios
       - key: JWT_SECRET
         sync: false
+      # Secreto interno: MISMO valor en los 4 microservicios. Autentica al gateway ante ellos.
+      - key: INTERNAL_SECRET
+        sync: false
       # URLs públicas de cada microservicio en Render
       - key: USUARIOS_URL
         sync: false

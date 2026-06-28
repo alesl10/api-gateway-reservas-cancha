@@ -13,6 +13,10 @@ const proxies = ROUTES.map((route) =>
   createProxyMiddleware({
     target: route.target,
     changeOrigin: true,
+    // Secreto interno que autentica al gateway ante los microservicios. Estos rechazan
+    // (403) toda request que no lo traiga, así nadie puede pegarles directo a su URL
+    // pública salteándose el gateway. Sobreescribe cualquier valor entrante del cliente.
+    headers: { 'x-internal-secret': process.env.INTERNAL_SECRET ?? '' },
     on: {
       proxyRes: (proxyRes) => {
         // El gateway ya agrega los headers CORS (app.enableCors). Borramos los que

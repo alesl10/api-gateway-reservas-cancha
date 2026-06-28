@@ -14,6 +14,10 @@ export class AuthMiddleware implements NestMiddleware {
   constructor(private jwtService: JwtService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
+    // El secreto interno lo agrega el proxy del gateway; borramos cualquiera que venga
+    // del cliente para que no pueda falsificarlo (igual que con x-cliente-id más abajo).
+    delete req.headers['x-internal-secret'];
+
     // Dejar pasar el preflight CORS (no lleva Authorization); si no, devolveríamos 401.
     if (req.method === 'OPTIONS') return next();
 
